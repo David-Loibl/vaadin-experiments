@@ -1,6 +1,7 @@
 package com.example.application.views.list;
 
 import com.example.application.data.entity.Contact;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -11,19 +12,23 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 
+import java.util.Collections;
+
 @Route(value = "")
 @Theme(themeFolder = "flowcrmtutorial")
 @PageTitle("Contacts | Vaadin CRM")
 public class ListView extends VerticalLayout {
     Grid<Contact> grid = new Grid<>(Contact.class);
     TextField filterText = new TextField();
+    ContactForm form;
 
     public ListView() {
         addClassName("list-view");
         setSizeFull();
         configureGrid();
+        configureForm();
 
-        add(getToolbar(), grid);
+        add(getToolbar(), getContent());
     }
 
     private void configureGrid() {
@@ -33,6 +38,20 @@ public class ListView extends VerticalLayout {
         grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Status");
         grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Company");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
+    }
+
+    private Component getContent() {
+        HorizontalLayout content = new HorizontalLayout(grid, form);
+        content.setFlexGrow(2, grid);
+        content.setFlexGrow(1, form);
+        content.addClassNames("content");
+        content.setSizeFull();
+        return content;
+    }
+
+    private void configureForm() {
+        form = new ContactForm(Collections.emptyList(), Collections.emptyList());
+        form.setWidth("25em");
     }
 
     private HorizontalLayout getToolbar() {
