@@ -13,6 +13,11 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
+import org.springframework.context.annotation.Scope;
+
+// Setup autowiring for Spring-enabled tests
+@org.springframework.stereotype.Component
+@Scope("prototype")
 
 @Route(value = "", layout = MainLayout.class)
 //@Theme(themeFolder = "flowcrmtutorial")
