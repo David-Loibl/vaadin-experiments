@@ -46,6 +46,7 @@ public class ContactFormTest {
         marcUsher.setCompany(company2);
     }
 
+    @Test
     public void formFieldsPopulated() {
         ContactForm form = new ContactForm(companies, statuses);
         form.setContact(marcUsher);
@@ -56,7 +57,8 @@ public class ContactFormTest {
         Assert.assertEquals(status1, form.status.getValue());
     }
 
-    public void saveEventhasCorrectValues() {
+    @Test
+    public void saveEventHasCorrectValues() {
         ContactForm form = new ContactForm(companies, statuses);
         Contact contact = new Contact();
         form.setContact(contact);
